@@ -56,3 +56,9 @@ netstat -nlp | grep 'node' | awk '{print $7}'| awk -F"/" '{ print $1 }'
 1478
 
 ```
+
+### find
+
+基本用法：
+1. find . -name "*" -exec rm -rf {} \;
+2. 避开某个文件夹不搜索  find /home/student -path /home/student/sep -prune -o -name "tmp.txt" -print
