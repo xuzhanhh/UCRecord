@@ -57,8 +57,17 @@ netstat -nlp | grep 'node' | awk '{print $7}'| awk -F"/" '{ print $1 }'
 
 ```
 
-### find
+## find
 
 基本用法：
 1. find . -name "*" -exec rm -rf {} \;
 2. 避开某个文件夹不搜索  find /home/student -path /home/student/sep -prune -o -name "tmp.txt" -print
+
+## scp 通过ssh传输文件
+1. 从服务器上下载文件 scp -r xzh@100.84.72.201:/home/xzh/weifan ~/test
+2. 上传本地文件到服务器   
+```
+~ scp ./Untitled-5.sh xzh@100.84.72.201:~
+xzh@100.84.72.201's password:
+Untitled-5.sh                                 100%   77     6.6KB/s   00:00 
+```
