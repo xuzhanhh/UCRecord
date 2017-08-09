@@ -71,3 +71,17 @@ netstat -nlp | grep 'node' | awk '{print $7}'| awk -F"/" '{ print $1 }'
 xzh@100.84.72.201's password:
 Untitled-5.sh                                 100%   77     6.6KB/s   00:00 
 ```
+
+## nohup
+### 场景：
+如果只是临时有一个命令需要长时间运行，什么方法能最简便的保证它在后台稳定运行呢？
+### hangup 名称的来由
+在 Unix 的早期版本中，每个终端都会通过 modem 和系统通讯。当用户 logout 时，modem 就会挂断（hang up）电话。 同理，当 modem 断开连接时，就会给终端发送 hangup 信号来通知其关闭所有子进程。
+### 解决方法：
+我们知道，当用户注销（logout）或者网络断开时，终端会收到 HUP（hangup）信号从而关闭其所有子进程。因此，我们的解决办法就有两种途径：要么让进程忽略 HUP 信号，要么让进程运行在新的会话里从而成为不属于此终端的子进程。
+### 1. nohup
+nohup 无疑是我们首先想到的办法。顾名思义，nohup 的用途就是让提交的命令忽略 hangup 信号。
+nohup 的使用是十分方便的，只需在要处理的命令前加上 nohup 即可，标准输出和标准错误缺省会被重定向到 nohup.out 文件中。一般我们可在结尾加上"&"来将命令同时放入后台运行，也可用">filename 2>&1"来更改缺省的重定向文件名。
+```
+nohup anyproxy -p  '+anyproxy_port+' -w '+anyproxy_if_port+ '  --intercept --file=' + spu_log_file + ' >/home/xzh/log/xzh1.log 2>&1 &
+```
